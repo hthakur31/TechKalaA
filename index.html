@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BuggetB — Placement Materials</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --muted:#9aa4b2; --accent:#6ee7b7; --glass: rgba(255,255,255,0.04);
+    }
+    *{box-sizing:border-box}
+    body{font-family:'Inter',system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial; margin:0; background:linear-gradient(180deg,#071025 0%, #071727 100%); color:#e6eef6; -webkit-font-smoothing:antialiased;}
+    header{display:flex;align-items:center;justify-content:space-between;padding:20px 32px;border-bottom:1px solid rgba(255,255,255,0.03);backdrop-filter:blur(4px)}
+    .logo{display:flex;gap:12px;align-items:center}
+    .brand{font-weight:800;letter-spacing:0.4px;font-size:20px}
+    .nav{display:flex;gap:18px;align-items:center}
+    .nav a{color:var(--muted);text-decoration:none;font-weight:600}
+    .hero{display:flex;gap:40px;align-items:center;padding:48px 32px}
+    .hero-left{flex:1}
+    .kicker{display:inline-block;padding:6px 10px;background:linear-gradient(90deg,#08324a,#093a6a);color:var(--accent);border-radius:999px;font-weight:700;font-size:12px}
+    h1{font-size:40px;margin:18px 0 12px;line-height:1.02}
+    p.lead{color:var(--muted);max-width:56ch}
+    .search{margin-top:18px;display:flex;gap:10px}
+    .search input{flex:1;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+    .search button{background:linear-gradient(90deg,var(--accent),#3bd6ff);border:none;padding:10px 14px;border-radius:10px;color:#04202b;font-weight:700}
+
+    .products{padding:20px 32px 80px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);padding:18px;border-radius:14px;box-shadow:0 6px 24px rgba(2,6,23,0.6);}
+    .thumb{height:120px;border-radius:10px;background:linear-gradient(135deg,#032b3c,#052a64);display:flex;align-items:center;justify-content:center;color:var(--accent);font-weight:700;font-size:18px;margin-bottom:12px}
+    .meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    .price{font-weight:800;color:var(--accent)}
+    .btn{display:inline-block;padding:10px 12px;border-radius:10px;border:none;background:#0ea5a3;color:#012;cursor:pointer;font-weight:700}
+    .ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)}
+
+    footer{padding:28px 32px;border-top:1px solid rgba(255,255,255,0.03);color:var(--muted);display:flex;justify-content:space-between}
+
+    /* modal */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(2,6,23,0.6),rgba(2,6,23,0.85));z-index:60}
+    .modal.open{display:flex}
+    .sheet{width:min(740px,92%);background:linear-gradient(180deg,#07142a,#061223);border-radius:12px;padding:18px;border:1px solid rgba(255,255,255,0.04)}
+    .sheet .head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+    .qr{display:flex;gap:18px;align-items:center}
+    .qr .box{width:220px;height:220px;background:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center}
+    .note{color:var(--muted);font-size:13px}
+
+    /* responsive */
+    @media (max-width:720px){h1{font-size:28px}.hero{flex-direction:column;align-items:flex-start}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="6" fill="#062433"/><path d="M6 12h12" stroke="#6EE7B7" stroke-width="1.5" stroke-linecap="round"/></svg><div class="brand">BuggetB</div></div>
+    <nav class="nav">
+      <a href="#products">Products</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <button class="btn ghost" id="setContactBtn">Set Contact</button>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-left">
+      <div class="kicker">Placement Material</div>
+      <h1>Premium placement kits & practice sets
+      <br><span style="font-weight:600;color:var(--muted);font-size:18px">Designed like product cards — buy by paying via QR</span></h1>
+      <p class="lead">High-quality notes, solved papers, mock interview sets and coding challenges packaged as individual products. Quick pay via QR — send a screenshot to your contact to confirm.</p>
+      <div class="search"><input id="q" placeholder="Search products, e.g. 'Aptitude'" /><button id="searchBtn">Search</button></div>
+    </div>
+    <div style="width:360px;display:flex;flex-direction:column;gap:12px">
+      <div style="background:var(--glass);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)">
+        <div style="font-weight:800">Why BuggetB?</div>
+        <div class="note">Curated placement-ready material, up-to-date problems, and compact mock tests. Perfect for final-week preparation.</div>
+      </div>
+      <div style="background:linear-gradient(90deg,#082033,#052a4a);padding:18px;border-radius:12px;color:var(--accent);font-weight:700;box-shadow:0 8px 28px rgba(2,6,23,0.6)">Trusted by hundreds of students</div>
+    </div>
+  </section>
+
+  <main class="products" id="products">
+    <h2 style="margin:0 0 14px 32px">Products</h2>
+    <div class="grid" id="productGrid">
+      <!-- cards inserted by JS -->
+    </div>
+  </main>
+
+  <footer>
+    <div>© <strong>BuggetB</strong> — Placement Materials</div>
+    <div class="note">Pay via QR, then send screenshot to the contact you set.</div>
+  </footer>
+
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="head">
+        <div>
+          <div id="modalTitle" style="font-weight:800">Pay Now</div>
+          <div class="note" id="productLabel">Completing purchase</div>
+        </div>
+        <div><button class="btn ghost" id="closeModal">Close</button></div>
+      </div>
+
+      <div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap">
+        <div class="qr">
+          <div class="box" id="qrBox">
+            <!-- simple inline QR-like SVG as placeholder -->
+            <svg width="180" height="180" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <rect width="100" height="100" fill="#fff"/>
+              <g fill="#0b1220">
+                <rect x="6" y="6" width="24" height="24"/>
+                <rect x="70" y="6" width="24" height="24"/>
+                <rect x="6" y="70" width="24" height="24"/>
+                <!-- pattern -->
+                <rect x="36" y="36" width="8" height="8"/>
+                <rect x="46" y="36" width="8" height="8"/>
+                <rect x="56" y="36" width="8" height="8"/>
+                <rect x="36" y="46" width="8" height="8"/>
+                <rect x="56" y="46" width="8" height="8"/>
+                <rect x="36" y="56" width="8" height="8"/>
+                <rect x="46" y="56" width="8" height="8"/>
+                <rect x="56" y="56" width="8" height="8"/>
+              </g>
+            </svg>
+          </div>
+          <div style="display:flex;flex-direction:column">
+            <div class="note">Scan this QR with UPI/Bank app</div>
+            <div style="margin-top:12px"><button class="btn" id="paidConfirm">I Paid — Send Screenshot</button></div>
+          </div>
+        </div>
+
+        <div style="flex:1;min-width:220px">
+          <div style="font-weight:800;margin-bottom:6px">Order</div>
+          <div id="orderSummary" class="note">Item — ₹0</div>
+          <div style="height:10px"></div>
+          <div style="font-weight:800;margin-bottom:6px">Instructions</div>
+          <div class="note">1) Open your banking/UPI app and scan the QR. 2) Make the payment for the shown amount. 3) Take a screenshot of the payment confirmation and send it to the contact below.</div>
+
+          <div style="margin-top:12px">
+            <div style="font-weight:700">Contact to send screenshot</div>
+            <div id="contactPhone" class="note" style="margin-top:6px">Not set — click 'Set Contact' to configure</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:flex-end;margin-top:16px;gap:8px">
+        <button class="btn ghost" id="downloadQr">Download QR</button>
+        <button class="btn" id="remindBtn">Remind me later</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const products = [
+        {id:1,name:'Aptitude Mastery Pack',price:199,desc:'30+ practice papers and strategies'},
+        {id:2,name:'DSA Interview Guide',price:349,desc:'60+ curated problems with solutions'},
+        {id:3,name:'System Design Mini Kit',price:299,desc:'Key concepts and mock questions'},
+        {id:4,name:'Mock Interview Set (10)',price:249,desc:'Timed mock test pack'},
+        {id:5,name:'Coding Challenge Vault',price:399,desc:'Company-wise questions and analysis'}
+      ];
+
+      const grid = document.getElementById('productGrid');
+      const modal = document.getElementById('modal');
+      const productLabel = document.getElementById('productLabel');
+      const orderSummary = document.getElementById('orderSummary');
+      const contactPhone = document.getElementById('contactPhone');
+
+      // Use localStorage for contact
+      function getContact(){return localStorage.getItem('buggetb_contact') || ''}
+      function setContact(v){localStorage.setItem('buggetb_contact',v); contactPhone.textContent = v || 'Not set — click \u2018Set Contact\u2019 to configure'}
+      setContact(getContact());
+
+      function render(){
+        grid.innerHTML = '';
+        for(const p of products){
+          const c = document.createElement('div'); c.className='card';
+          c.innerHTML = `
+            <div class="thumb">${p.name.split(' ')[0]}</div>
+            <div style="font-weight:700;margin-bottom:6px">${p.name}</div>
+            <div class="note" style="margin-bottom:10px">${p.desc}</div>
+            <div class="meta"><div class="price">₹${p.price}</div><div><button class="btn" data-id="${p.id}">Pay Now</button></div></div>
+          `;
+          grid.appendChild(c);
+        }
+      }
+      render();
+
+      // open modal
+      grid.addEventListener('click', (e)=>{
+        const btn = e.target.closest('button');
+        if(!btn) return;
+        const id = btn.getAttribute('data-id'); if(!id) return;
+        const p = products.find(x=>x.id==id);
+        productLabel.textContent = p.name + ' — ₹' + p.price;
+        orderSummary.textContent = p.name + ' — ₹' + p.price;
+        modal.classList.add('open');
+      });
+
+      document.getElementById('closeModal').addEventListener('click',()=>modal.classList.remove('open'));
+      document.getElementById('paidConfirm').addEventListener('click', ()=>{
+        const contact = getContact();
+        if(!contact){
+          const set = confirm('No contact set. Set it now?');
+          if(set) return askContact();
+          return alert('Please set a contact to receive screenshots.');
+        }
+        alert('Thanks! Please send the screenshot to: ' + contact + '\nWe will confirm after verification.');
+      });
+
+      function askContact(){
+        const v = prompt('Enter the mobile number (with country code if you like):', getContact()||'+91-');
+        if(v!==null){ setContact(v.trim()); }
+      }
+      document.getElementById('setContactBtn').addEventListener('click', askContact);
+
+      // search
+      document.getElementById('searchBtn').addEventListener('click', ()=>{
+        const q = document.getElementById('q').value.trim().toLowerCase();
+        if(!q){ render(); return; }
+        const filtered = products.filter(p=> (p.name + ' ' + p.desc).toLowerCase().includes(q));
+        grid.innerHTML = '';
+        for(const p of filtered){
+          const c = document.createElement('div'); c.className='card';
+          c.innerHTML = `
+            <div class="thumb">${p.name.split(' ')[0]}</div>
+            <div style="font-weight:700;margin-bottom:6px">${p.name}</div>
+            <div class="note" style="margin-bottom:10px">${p.desc}</div>
+            <div class="meta"><div class="price">₹${p.price}</div><div><button class="btn" data-id="${p.id}">Pay Now</button></div></div>
+          `;
+          grid.appendChild(c);
+        }
+      });
+
+      // download QR (simple SVG download)
+      document.getElementById('downloadQr').addEventListener('click', ()=>{
+        const svg = document.querySelector('#qrBox svg');
+        if(!svg) return alert('QR not available');
+        const s = new XMLSerializer().serializeToString(svg);
+        const blob = new Blob([s], {type:'image/svg+xml'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = 'buggetb-qr.svg'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+      });
+
+      // keyboard ESC to close
+      window.addEventListener('keydown', (e)=>{ if(e.key==='Escape') modal.classList.remove('open') });
+
+      // initial contact text
+      setContact(getContact());
+    })();
+  </script>
+</body>
+</html>
