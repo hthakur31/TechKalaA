@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mock Interview - BuggetB</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --muted:#9aa4b2; --accent:#6ee7b7; --glass: rgba(255,255,255,0.04);
+    }
+    *{box-sizing:border-box}
+    body{font-family:'Inter',system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial; margin:0; background:linear-gradient(180deg,#071025 0%, #071727 100%); color:#e6eef6; -webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh}
+    
+    /* Floating particles background */
+    body::before,body::after{content:'';position:fixed;width:400px;height:400px;border-radius:50%;filter:blur(80px);opacity:0.15;pointer-events:none;z-index:0}
+    body::before{background:var(--accent);top:-200px;left:-200px;animation:float 20s ease-in-out infinite}
+    body::after{background:#3bd6ff;bottom:-200px;right:-200px;animation:float 25s ease-in-out infinite reverse}
+    
+    header{display:flex;align-items:center;justify-content:space-between;padding:20px 32px;border-bottom:1px solid rgba(255,255,255,0.03);backdrop-filter:blur(12px);position:sticky;top:0;z-index:50;background:rgba(7,16,37,0.8);animation:slideDown 0.6s ease-out}
+    .logo{display:flex;gap:12px;align-items:center;animation:fadeIn 0.8s ease-out 0.2s both}
+    .logo svg{animation:rotate 20s linear infinite}
+    .brand{font-weight:800;letter-spacing:0.4px;font-size:20px;background:linear-gradient(135deg,#fff,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .nav{display:flex;gap:18px;align-items:center;animation:fadeIn 0.8s ease-out 0.4s both}
+    .nav a{color:var(--muted);text-decoration:none;font-weight:600;position:relative;transition:color 0.3s}
+    .nav a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--accent);transition:width 0.3s}
+    .nav a:hover{color:var(--accent)}
+    .nav a:hover::after{width:100%}
+    .nav a.active{color:var(--accent)}
+    
+    .btn{padding:10px 18px;background:linear-gradient(90deg,var(--accent),#3bd6ff);border:none;border-radius:8px;color:#012;font-weight:700;cursor:pointer;transition:transform 0.2s,box-shadow 0.3s}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(110,231,183,0.3)}
+    .btn.ghost{background:rgba(255,255,255,0.05);color:var(--accent);border:1px solid rgba(110,231,183,0.3)}
+    .btn.ghost:hover{background:rgba(110,231,183,0.1)}
+    
+    .hero-section{padding:60px 32px;text-align:center;position:relative;z-index:1}
+    .hero-title{font-size:56px;font-weight:900;margin:0 0 20px;background:linear-gradient(135deg,#fff,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:fadeInUp 0.8s ease-out both}
+    .hero-subtitle{font-size:20px;color:var(--muted);margin-bottom:40px;animation:fadeInUp 0.8s ease-out 0.2s both}
+    
+    .booking-container{max-width:1200px;margin:0 auto;padding:40px 32px;position:relative;z-index:1}
+    .booking-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-bottom:60px}
+    
+    .info-section{animation:fadeInLeft 0.8s ease-out 0.4s both}
+    .info-card{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:32px;margin-bottom:24px}
+    .info-card h3{margin:0 0 16px;font-size:24px;color:var(--accent)}
+    .info-card p{color:var(--muted);line-height:1.8;margin:0}
+    .feature-list{list-style:none;padding:0;margin:20px 0 0 0}
+    .feature-list li{padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.05);color:#e6eef6;display:flex;align-items:center;gap:12px}
+    .feature-list li:last-child{border:none}
+    .feature-icon{color:var(--accent);font-size:20px}
+    
+    .booking-form{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:32px;animation:fadeInRight 0.8s ease-out 0.4s both}
+    .booking-form h3{margin:0 0 24px;font-size:24px;color:#fff}
+    .form-group{margin-bottom:20px}
+    .form-group label{display:block;margin-bottom:8px;color:#e6eef6;font-weight:600}
+    .form-group input, .form-group select, .form-group textarea{width:100%;padding:12px 16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#e6eef6;font-family:inherit;font-size:14px;transition:border-color 0.3s}
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus{outline:none;border-color:var(--accent)}
+    .form-group textarea{resize:vertical;min-height:100px}
+    
+    .pricing-section{text-align:center;padding:60px 32px;background:rgba(255,255,255,0.01)}
+    .pricing-title{font-size:36px;font-weight:900;margin:0 0 16px;color:var(--accent)}
+    .pricing-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:1000px;margin:40px auto 0}
+    .price-card{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:32px;transition:transform 0.3s,box-shadow 0.3s;animation:scaleIn 0.6s ease-out both}
+    .price-card:hover{transform:translateY(-8px);box-shadow:0 12px 40px rgba(110,231,183,0.2);border-color:var(--accent)}
+    .price-card.featured{border:2px solid var(--accent);background:rgba(110,231,183,0.05)}
+    .price-badge{display:inline-block;padding:6px 12px;background:var(--accent);color:#012;border-radius:6px;font-size:12px;font-weight:700;margin-bottom:16px}
+    .price-amount{font-size:48px;font-weight:900;color:var(--accent);margin:16px 0}
+    .price-duration{color:var(--muted);margin-bottom:24px}
+    .price-features{list-style:none;padding:0;margin:0 0 24px}
+    .price-features li{padding:12px 0;color:#e6eef6;text-align:left}
+    
+    footer{padding:32px;text-align:center;border-top:1px solid rgba(255,255,255,0.03);color:var(--muted);margin-top:60px}
+    
+    @keyframes float{0%,100%{transform:translate(0,0)}25%{transform:translate(20px,-20px)}50%{transform:translate(-20px,20px)}75%{transform:translate(10px,10px)}}
+    @keyframes slideDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fadeInLeft{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
+    @keyframes fadeInRight{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
+    @keyframes rotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    @keyframes scaleIn{from{opacity:0;transform:scale(0.8)}to{opacity:1;transform:scale(1)}}
+    
+    @media (max-width:920px){
+      .booking-grid{grid-template-columns:1fr}
+      .hero-title{font-size:42px}
+      .pricing-cards{grid-template-columns:1fr}
+    }
+    @media (max-width:720px){
+      .hero-title{font-size:36px}
+      .nav{gap:12px;flex-wrap:wrap}
+      .nav a{font-size:14px}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" style="text-decoration:none">
+      <div class="logo">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="6" fill="#062433"/><path d="M6 12h12" stroke="#6EE7B7" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <div class="brand">✨ BuggetB</div>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="index.html">🏠 Home</a>
+      <a href="mock-interview.html" class="active">🎤 Mock Interview</a>
+      <button class="btn ghost" id="navWhatsApp" style="display:flex;align-items:center;gap:6px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </button>
+      <button class="btn ghost" id="navEmail" style="display:flex;align-items:center;gap:6px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        Email
+      </button>
+    </nav>
+  </header>
+
+  <section class="hero-section">
+    <h1 class="hero-title">🎤 Mock Interview Sessions</h1>
+    <p class="hero-subtitle">Practice with Industry Experts • Boost Your Confidence • Land Your Dream Job</p>
+  </section>
+
+  <div class="booking-container">
+    <div class="booking-grid">
+      <div class="info-section">
+        <div class="info-card">
+          <h3>💼 Why Mock Interviews?</h3>
+          <p>Get real interview experience with industry professionals. Our mock interviews simulate actual placement scenarios, helping you prepare for technical, HR, and behavioral rounds.</p>
+          <ul class="feature-list">
+            <li><span class="feature-icon">✓</span> One-on-one session with experienced interviewers</li>
+            <li><span class="feature-icon">✓</span> Detailed feedback and improvement areas</li>
+            <li><span class="feature-icon">✓</span> Technical + HR round preparation</li>
+            <li><span class="feature-icon">✓</span> Company-specific interview patterns</li>
+            <li><span class="feature-icon">✓</span> Video session recording provided</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3>📋 How It Works</h3>
+          <ul class="feature-list">
+            <li><span class="feature-icon">1️⃣</span> Fill the booking form below</li>
+            <li><span class="feature-icon">2️⃣</span> Choose your preferred date & time</li>
+            <li><span class="feature-icon">3️⃣</span> Complete the payment</li>
+            <li><span class="feature-icon">4️⃣</span> Receive meeting link on WhatsApp</li>
+            <li><span class="feature-icon">5️⃣</span> Attend your mock interview</li>
+            <li><span class="feature-icon">6️⃣</span> Get detailed feedback report</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="booking-form">
+        <h3>📅 Book Your Slot</h3>
+        <form id="mockInterviewForm">
+          <div class="form-group">
+            <label for="name">Full Name *</label>
+            <input type="text" id="name" name="name" required placeholder="Enter your full name">
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+          </div>
+
+          <div class="form-group">
+            <label for="phone">WhatsApp Number *</label>
+            <input type="tel" id="phone" name="phone" required placeholder="+91 XXXXX XXXXX">
+          </div>
+
+          <div class="form-group">
+            <label for="package">Interview Package *</label>
+            <select id="package" name="package" required>
+              <option value="">Select Package</option>
+              <option value="technical">Technical Interview Only - ₹299</option>
+              <option value="hr">HR Interview Only - ₹199</option>
+              <option value="combo">Technical + HR Combo - ₹449</option>
+              <option value="premium">Premium (Multiple Rounds) - ₹799</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="date">Preferred Date *</label>
+            <input type="date" id="date" name="date" required>
+          </div>
+
+          <div class="form-group">
+            <label for="time">Preferred Time Slot *</label>
+            <select id="time" name="time" required>
+              <option value="">Select Time</option>
+              <option value="10am">10:00 AM - 11:00 AM</option>
+              <option value="11am">11:00 AM - 12:00 PM</option>
+              <option value="2pm">02:00 PM - 03:00 PM</option>
+              <option value="3pm">03:00 PM - 04:00 PM</option>
+              <option value="4pm">04:00 PM - 05:00 PM</option>
+              <option value="5pm">05:00 PM - 06:00 PM</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Additional Information (Optional)</label>
+            <textarea id="message" name="message" placeholder="Any specific topics or companies you want to focus on?"></textarea>
+          </div>
+
+          <button type="submit" class="btn" style="width:100%;font-size:16px;padding:14px">🚀 Submit Booking Request</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <section class="pricing-section">
+    <h2 class="pricing-title">💰 Pricing Plans</h2>
+    <p style="color:var(--muted);margin-bottom:20px">Choose the package that suits your preparation needs</p>
+    
+    <div class="pricing-cards">
+      <div class="price-card">
+        <h3 style="margin:0 0 8px;color:#fff">HR Interview</h3>
+        <div class="price-amount">₹199</div>
+        <div class="price-duration">Per Session</div>
+        <ul class="price-features">
+          <li>✓ 45-minute session</li>
+          <li>✓ HR round preparation</li>
+          <li>✓ Behavioral questions</li>
+          <li>✓ Detailed feedback</li>
+          <li>✓ Resume review tips</li>
+        </ul>
+        <button class="btn ghost" style="width:100%" onclick="document.getElementById('package').value='hr';document.getElementById('mockInterviewForm').scrollIntoView({behavior:'smooth'})">Select Plan</button>
+      </div>
+
+      <div class="price-card">
+        <h3 style="margin:0 0 8px;color:#fff">Technical Interview</h3>
+        <div class="price-amount">₹299</div>
+        <div class="price-duration">Per Session</div>
+        <ul class="price-features">
+          <li>✓ 60-minute session</li>
+          <li>✓ Technical questions</li>
+          <li>✓ Coding problems</li>
+          <li>✓ DSA preparation</li>
+          <li>✓ Code review & tips</li>
+        </ul>
+        <button class="btn ghost" style="width:100%" onclick="document.getElementById('package').value='technical';document.getElementById('mockInterviewForm').scrollIntoView({behavior:'smooth'})">Select Plan</button>
+      </div>
+
+      <div class="price-card featured">
+        <span class="price-badge">🔥 POPULAR</span>
+        <h3 style="margin:0 0 8px;color:#fff">Combo Package</h3>
+        <div class="price-amount">₹449</div>
+        <div class="price-duration">Both Rounds</div>
+        <ul class="price-features">
+          <li>✓ Technical + HR rounds</li>
+          <li>✓ 90-minute session</li>
+          <li>✓ Complete preparation</li>
+          <li>✓ Detailed feedback</li>
+          <li>✓ Video recording</li>
+        </ul>
+        <button class="btn" style="width:100%" onclick="document.getElementById('package').value='combo';document.getElementById('mockInterviewForm').scrollIntoView({behavior:'smooth'})">Select Plan</button>
+      </div>
+
+      <div class="price-card">
+        <span class="price-badge" style="background:#3bd6ff">⭐ PREMIUM</span>
+        <h3 style="margin:0 0 8px;color:#fff">Premium Package</h3>
+        <div class="price-amount">₹799</div>
+        <div class="price-duration">Multiple Rounds</div>
+        <ul class="price-features">
+          <li>✓ 3 mock interview rounds</li>
+          <li>✓ Technical + HR + Behavioral</li>
+          <li>✓ 120-minute session</li>
+          <li>✓ Priority scheduling</li>
+          <li>✓ Detailed report PDF</li>
+        </ul>
+        <button class="btn" style="width:100%;background:linear-gradient(90deg,#3bd6ff,var(--accent))" onclick="document.getElementById('package').value='premium';document.getElementById('mockInterviewForm').scrollIntoView({behavior:'smooth'})">Select Plan</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div>© 2025 <strong>BuggetB</strong> — 🎓 Premium Placement Materials & Mock Interviews | Made with 💚 for Students</div>
+    <div style="margin-top:12px;font-size:13px">💳 Secure Payment • 📱 Instant Confirmation • 🔒 100% Safe</div>
+  </footer>
+
+  <script>
+    // Contact buttons functionality
+    function openWhatsAppContact(){
+      const message = encodeURIComponent(`Hi BuggetB! I'm interested in your placement materials and mock interviews. Please share more details. 🎓`);
+      const whatsappURL = `https://wa.me/917440244085?text=${message}`;
+      window.open(whatsappURL, '_blank');
+    }
+    document.getElementById('navWhatsApp').addEventListener('click', openWhatsAppContact);
+
+    function openEmailContact(){
+      const subject = `Inquiry about Placement Materials & Mock Interviews`;
+      const body = `Hi BuggetB Team,%0D%0A%0D%0AI am interested in learning more about your placement preparation materials and mock interview services.%0D%0A%0D%0APlease share the details.%0D%0A%0D%0AThank you!%0D%0A%0D%0ABest regards`;
+      const gmailURL = `https://mail.google.com/mail/?view=cm&fs=1&to=placementguide6@gmail.com&su=${encodeURIComponent(subject)}&body=${body}`;
+      window.open(gmailURL, '_blank');
+    }
+    document.getElementById('navEmail').addEventListener('click', openEmailContact);
+
+    // Set minimum date to today
+    document.getElementById('date').min = new Date().toISOString().split('T')[0];
+
+    // Form submission
+    document.getElementById('mockInterviewForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      
+      const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        package: document.getElementById('package').value,
+        date: document.getElementById('date').value,
+        time: document.getElementById('time').value,
+        message: document.getElementById('message').value
+      };
+
+      const packageNames = {
+        'technical': 'Technical Interview Only - ₹299',
+        'hr': 'HR Interview Only - ₹199',
+        'combo': 'Technical + HR Combo - ₹449',
+        'premium': 'Premium (Multiple Rounds) - ₹799'
+      };
+
+      // Send to WhatsApp
+      const whatsappMessage = encodeURIComponent(
+        `🎤 Mock Interview Booking Request\n\n` +
+        `👤 Name: ${formData.name}\n` +
+        `📧 Email: ${formData.email}\n` +
+        `📱 Phone: ${formData.phone}\n` +
+        `📦 Package: ${packageNames[formData.package]}\n` +
+        `📅 Date: ${formData.date}\n` +
+        `🕐 Time: ${formData.time}\n` +
+        `💬 Message: ${formData.message || 'None'}\n\n` +
+        `Please confirm my booking and share payment details. Thank you! 🎓`
+      );
+      
+      window.open(`https://wa.me/917440244085?text=${whatsappMessage}`, '_blank');
+      
+      alert('✅ Your booking request has been sent via WhatsApp! We will confirm your slot shortly.');
+      this.reset();
+    });
+  </script>
+</body>
+</html>
