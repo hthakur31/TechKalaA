@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5,user-scalable=yes" />
   <title>TechKalaA - Placement Materials</title>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
@@ -18,39 +18,56 @@
     body::before{background:var(--accent);top:-200px;left:-200px;animation:float 20s ease-in-out infinite}
     body::after{background:#3bd6ff;bottom:-200px;right:-200px;animation:float 25s ease-in-out infinite reverse}
     
-    header{display:flex;align-items:center;justify-content:space-between;padding:20px 32px;border-bottom:1px solid rgba(255,255,255,0.03);backdrop-filter:blur(12px);position:sticky;top:0;z-index:50;background:rgba(7,16,37,0.8);animation:slideDown 0.6s ease-out}
-    .logo{display:flex;gap:12px;align-items:center;animation:fadeIn 0.8s ease-out 0.2s both}
+    header{display:flex;align-items:center;justify-content:space-between;padding:20px 32px;border-bottom:1px solid rgba(255,255,255,0.03);backdrop-filter:blur(12px);position:sticky;top:0;z-index:50;background:rgba(7,16,37,0.95);animation:slideDown 0.6s ease-out}
+    .logo{display:flex;gap:12px;align-items:center;animation:fadeIn 0.8s ease-out 0.2s both;cursor:pointer}
     .logo svg{animation:rotate 20s linear infinite}
     .brand{font-weight:800;letter-spacing:0.4px;font-size:20px;background:linear-gradient(135deg,#fff,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-    .nav{display:flex;gap:18px;align-items:center;animation:fadeIn 0.8s ease-out 0.4s both}
-    .nav a{color:var(--muted);text-decoration:none;font-weight:600;position:relative;transition:color 0.3s}
+    
+    /* Mobile-first: Hide nav by default, show hamburger */
+    .nav{display:none;gap:18px;align-items:center}
+    .nav a{color:var(--muted);text-decoration:none;font-weight:600;position:relative;transition:color 0.3s;white-space:nowrap}
     .nav a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--accent);transition:width 0.3s}
     .nav a:hover{color:var(--accent)}
     .nav a:hover::after{width:100%}
     
+    /* Hamburger Menu - Visible by default on mobile */
+    .hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:10px;background:rgba(110,231,183,0.1);border-radius:8px;border:1px solid rgba(110,231,183,0.3);transition:all 0.3s;z-index:51}
+    .hamburger:hover{background:rgba(110,231,183,0.2);border-color:var(--accent);transform:scale(1.05)}
+    .hamburger span{width:26px;height:3px;background:var(--accent);border-radius:2px;transition:all 0.3s;display:block}
+    .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(8px,8px)}
+    .hamburger.active span:nth-child(2){opacity:0;transform:translateX(-10px)}
+    .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(8px,-8px)}
+    
+    .mobile-nav{display:none;position:fixed;top:73px;left:0;right:0;bottom:0;background:rgba(7,16,37,0.98);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.06);padding:0;z-index:49;overflow-y:auto;opacity:0;transform:translateY(-20px);transition:opacity 0.3s ease-out,transform 0.3s ease-out}
+    .mobile-nav.open{display:block;opacity:1;transform:translateY(0);animation:fadeIn 0.3s ease-out}
+    .mobile-nav-content{padding:24px 20px;max-width:500px;margin:0 auto}
+    .mobile-nav a,.mobile-nav button{display:block;width:100%;text-align:left;margin-bottom:16px;padding:16px 20px;border-radius:12px;transition:all 0.3s;font-size:16px;font-weight:600;color:#fff;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);text-decoration:none}
+    .mobile-nav a:hover,.mobile-nav button:hover{background:rgba(110,231,183,0.15);transform:translateX(8px);border-color:var(--accent);box-shadow:0 4px 12px rgba(110,231,183,0.2);color:var(--accent)}
+    .mobile-nav a.active{color:var(--accent);background:rgba(110,231,183,0.1);border-color:rgba(110,231,183,0.4)}
+    
     .hero{display:flex;gap:40px;align-items:center;padding:48px 32px;position:relative;z-index:1}
     .hero-left{flex:1;animation:fadeInLeft 1s ease-out}
     .kicker{display:inline-block;padding:8px 14px;background:linear-gradient(90deg,#08324a,#093a6a);color:var(--accent);border-radius:999px;font-weight:700;font-size:13px;animation:bounce 2s ease-in-out infinite;box-shadow:0 4px 12px rgba(110,231,183,0.2)}
-    h1{font-size:40px;margin:18px 0 12px;line-height:1.02;animation:fadeInUp 1s ease-out 0.2s both}
+    h1{font-size:40px;margin:18px 0 12px;line-height:1.1;animation:fadeInUp 1s ease-out 0.2s both}
     h1 .gradient-text{background:linear-gradient(135deg,#fff,var(--accent),#3bd6ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 3s ease-in-out infinite}
     p.lead{color:var(--muted);max-width:56ch;animation:fadeInUp 1s ease-out 0.4s both}
-    .search{margin-top:18px;display:flex;gap:10px;animation:fadeInUp 1s ease-out 0.6s both}
-    .search input{flex:1;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.02);color:inherit;transition:border-color 0.3s,background 0.3s}
+    .search{margin-top:18px;display:flex;gap:10px;animation:fadeInUp 1s ease-out 0.6s both;flex-wrap:wrap}
+    .search input{flex:1;min-width:200px;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.02);color:inherit;transition:border-color 0.3s,background 0.3s;font-size:16px}
     .search input:focus{outline:none;border-color:var(--accent);background:rgba(255,255,255,0.04)}
-    .search button{background:linear-gradient(90deg,var(--accent),#3bd6ff);border:none;padding:10px 16px;border-radius:10px;color:#04202b;font-weight:700;transition:transform 0.2s,box-shadow 0.3s;cursor:pointer}
+    .search button{background:linear-gradient(90deg,var(--accent),#3bd6ff);border:none;padding:10px 16px;border-radius:10px;color:#04202b;font-weight:700;transition:transform 0.2s,box-shadow 0.3s;cursor:pointer;white-space:nowrap}
     .search button:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(110,231,183,0.4)}
     
-    .hero-right{width:360px;display:flex;flex-direction:column;gap:12px;animation:fadeInRight 1s ease-out 0.4s both}
+    .hero-right{width:360px;max-width:100%;display:flex;flex-direction:column;gap:12px;animation:fadeInRight 1s ease-out 0.4s both}
     .info-card{background:var(--glass);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);backdrop-filter:blur(10px);transition:transform 0.3s,box-shadow 0.3s}
     .info-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(110,231,183,0.15)}
-    .highlight-card{background:linear-gradient(135deg,#082033,#052a4a);padding:18px;border-radius:12px;color:var(--accent);font-weight:700;box-shadow:0 8px 28px rgba(2,6,23,0.6);animation:glow 3s ease-in-out infinite}
+    .highlight-card{background:linear-gradient(135deg,#082033,#052a4a);padding:18px;border-radius:12px;color:var(--accent);font-weight:700;box-shadow:0 8px 28px rgba(2,6,23,0.6);animation:glow 3s ease-in-out infinite;text-align:center}
 
-    .products{padding:20px 32px 80px;position:relative;z-index:1}
+    .products{padding:20px 16px 80px;position:relative;z-index:1}
     .section-header{text-align:center;margin-bottom:40px;animation:fadeInUp 1s ease-out both}
     .section-title{font-size:36px;font-weight:900;margin:0 0 12px;background:linear-gradient(135deg,#fff,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
     .section-tagline{color:var(--muted);font-size:16px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,280px));gap:20px;justify-content:start}
-    .card{background:linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.06);padding:18px;border-radius:14px;box-shadow:0 6px 24px rgba(2,6,23,0.6);max-width:280px;width:100%;transition:transform 0.3s,box-shadow 0.3s,border-color 0.3s;animation:fadeInUp 0.8s ease-out both;position:relative;overflow:hidden}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;justify-content:start;max-width:100%}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.06);padding:18px;border-radius:14px;box-shadow:0 6px 24px rgba(2,6,23,0.6);max-width:100%;width:100%;transition:transform 0.3s,box-shadow 0.3s,border-color 0.3s;animation:fadeInUp 0.8s ease-out both;position:relative;overflow:hidden}
     .card::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(110,231,183,0.1),transparent);transition:left 0.5s}
     .card:hover::before{left:100%}
     .card:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 12px 36px rgba(110,231,183,0.3);border-color:rgba(110,231,183,0.3)}
@@ -59,14 +76,14 @@
     .card:hover .thumb::after{opacity:1}
     .meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
     .price{font-weight:800;color:var(--accent);font-size:20px;animation:pulse 2s ease-in-out infinite}
-    .btn{display:inline-block;padding:10px 12px;border-radius:10px;border:none;background:linear-gradient(90deg,#0ea5a3,#0db3b1);color:#012;cursor:pointer;font-weight:700;transition:transform 0.2s,box-shadow 0.3s;position:relative;overflow:hidden}
+    .btn{display:inline-block;padding:10px 12px;border-radius:10px;border:none;background:linear-gradient(90deg,#0ea5a3,#0db3b1);color:#012;cursor:pointer;font-weight:700;transition:transform 0.2s,box-shadow 0.3s;position:relative;overflow:hidden;touch-action:manipulation;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
     .btn::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);transform:translateX(-100%);transition:transform 0.5s}
     .btn:hover::before{transform:translateX(100%)}
     .btn:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(14,165,163,0.4)}
     .ghost{background:transparent;border:1px solid rgba(255,255,255,0.08);color:var(--muted);transition:border-color 0.3s,color 0.3s,background 0.3s}
     .ghost:hover{border-color:var(--accent);color:var(--accent);background:rgba(110,231,183,0.05)}
 
-    footer{padding:28px 32px;border-top:1px solid rgba(255,255,255,0.03);color:var(--muted);display:flex;justify-content:space-between;position:relative;z-index:1;animation:fadeIn 1.5s ease-out}
+    footer{padding:28px 16px;border-top:1px solid rgba(255,255,255,0.03);color:var(--muted);display:flex;justify-content:space-between;position:relative;z-index:1;animation:fadeIn 1.5s ease-out;flex-wrap:wrap;gap:12px;font-size:14px}
 
     /* Scroll to top button */
     .scroll-top{position:fixed;bottom:30px;right:110px;width:50px;height:50px;background:linear-gradient(135deg,var(--accent),#3bd6ff);border:none;border-radius:50%;color:#012;font-size:24px;cursor:pointer;box-shadow:0 6px 20px rgba(110,231,183,0.4);opacity:0;visibility:hidden;transition:all 0.3s;z-index:80;display:flex;align-items:center;justify-content:center}
@@ -84,13 +101,13 @@
     .floating-btn svg{width:28px;height:28px;color:white}
 
     /* gallery section */
-    .gallery{padding:40px 32px 60px;background:rgba(255,255,255,0.01);position:relative;z-index:1}
+    .gallery{padding:40px 16px 60px;background:rgba(255,255,255,0.01);position:relative;z-index:1}
     .gallery h2{margin:0 0 10px 0;font-size:36px;font-weight:900;background:linear-gradient(135deg,#fff,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:fadeInUp 1s ease-out both}
     .gallery-subtitle{color:var(--muted);margin-bottom:32px;animation:fadeInUp 1s ease-out 0.2s both}
     .gallery-subsection{margin-top:48px;padding-top:32px;border-top:1px solid rgba(255,255,255,0.06)}
     .gallery-subsection h3{margin:0 0 8px 0;font-size:28px;font-weight:800;color:var(--accent);animation:fadeInUp 1s ease-out both}
     .gallery-subsection-subtitle{color:var(--muted);margin-bottom:24px;font-size:14px}
-    .gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,240px));gap:18px;justify-content:start;margin-bottom:24px}
+    .gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px;justify-content:start;margin-bottom:24px}
     .gallery-item{position:relative;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.06);background:linear-gradient(135deg,#032b3c,#052a64);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform 0.3s,box-shadow 0.3s,border-color 0.3s;animation:scaleIn 0.6s ease-out both}
     .gallery-item:nth-child(1){animation-delay:0.1s}
     .gallery-item:nth-child(2){animation-delay:0.2s}
@@ -113,9 +130,9 @@
     .lightbox-close:hover{background:rgba(255,255,255,0.2);transform:scale(1.05);box-shadow:0 4px 16px rgba(255,255,255,0.2)}
 
     /* premium promo section */
-    .promo{padding:60px 32px;background:linear-gradient(135deg,#0a1628 0%,#0d2137 50%,#082642 100%);position:relative;overflow:hidden}
+    .promo{padding:60px 16px;background:linear-gradient(135deg,#0a1628 0%,#0d2137 50%,#082642 100%);position:relative;overflow:hidden}
     .promo::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 50%,rgba(110,231,183,0.08),transparent 50%),radial-gradient(circle at 80% 50%,rgba(59,214,255,0.06),transparent 50%);animation:pulse 8s ease-in-out infinite}
-    .promo-container{max-width:1100px;margin:0 auto;position:relative;z-index:1}
+    .promo-container{max-width:1100px;margin:0 auto;position:relative;z-index:1;padding:0 8px}
     .promo-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:linear-gradient(90deg,rgba(110,231,183,0.15),rgba(59,214,255,0.15));border:1px solid var(--accent);border-radius:999px;color:var(--accent);font-weight:700;font-size:14px;margin-bottom:20px;animation:slideDown 0.6s ease-out}
     .promo-title{font-size:48px;font-weight:900;line-height:1.1;margin:0 0 16px;background:linear-gradient(135deg,#fff 0%,var(--accent) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:fadeInUp 0.8s ease-out 0.2s both}
     .promo-subtitle{font-size:20px;color:#c5d4e8;margin-bottom:32px;animation:fadeInUp 0.8s ease-out 0.4s both}
@@ -140,9 +157,9 @@
     .company-tag{padding:8px 14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:#c5d4e8;font-size:13px;font-weight:600}
 
     /* Instruction Section */
-    .instructions{padding:80px 32px;background:linear-gradient(180deg,#071025 0%,#0a1628 100%);position:relative;overflow:hidden}
+    .instructions{padding:60px 16px;background:linear-gradient(180deg,#071025 0%,#0a1628 100%);position:relative;overflow:hidden}
     .instructions::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(110,231,183,0.1),transparent 60%);pointer-events:none}
-    .instructions-container{max-width:1000px;margin:0 auto;position:relative;z-index:1}
+    .instructions-container{max-width:1000px;margin:0 auto;position:relative;z-index:1;padding:0 8px}
     .instructions-header{text-align:center;margin-bottom:60px}
     .instructions-title{font-size:48px;font-weight:900;margin:0 0 16px;background:linear-gradient(135deg,#fff,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:fadeInUp 0.8s ease-out both}
     .instructions-subtitle{font-size:18px;color:var(--muted);animation:fadeInUp 0.8s ease-out 0.2s both}
@@ -176,45 +193,178 @@
     @keyframes scaleIn{from{opacity:0;transform:scale(0.8)}to{opacity:1;transform:scale(1)}}
     @keyframes zoomIn{from{opacity:0;transform:scale(0.9)}to{opacity:1;transform:scale(1)}}
 
-    /* responsive */
+    /* Desktop - Show normal nav, hide hamburger */
+    @media (min-width:921px){
+      .nav{display:flex !important;animation:fadeIn 0.8s ease-out 0.4s both}
+      .hamburger{display:none !important}
+      .mobile-nav{display:none !important}
+    }
+
+    /* Modal */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(2,6,23,0.6),rgba(2,6,23,0.85));z-index:60;padding:16px}
+    .modal.open{display:flex}
+    .sheet{width:min(740px,92%);max-height:90vh;overflow-y:auto;background:linear-gradient(180deg,#07142a,#061223);border-radius:12px;padding:18px;border:1px solid rgba(255,255,255,0.04)}
+    .sheet .head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px}
+    .qr{display:flex;gap:18px;align-items:center;flex-wrap:wrap;justify-content:center}
+    .qr .box{width:220px;height:220px;max-width:100%;background:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center}
+    .note{color:var(--muted);font-size:13px}
+
+    /* Responsive Design - Mobile First */
+    /* Tablet and smaller laptops */
+    @media (max-width:1024px){
+      header{padding:16px 24px}
+      .hero{padding:40px 24px;gap:32px}
+      .products{padding:40px 24px}
+      .gallery{padding:40px 24px}
+      .promo{padding:50px 24px}
+      .instructions{padding:50px 24px}
+      .grid{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+      .gallery-grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
+    }
+
+    /* Tablet portrait */
     @media (max-width:920px){
+      header{padding:16px 20px}
+      .brand{font-size:18px}
+      .nav{gap:10px}
+      .nav a{font-size:14px}
+      .nav button{font-size:13px;padding:8px 12px}
+      h1{font-size:34px}
+      .section-title{font-size:32px}
       .promo-content{grid-template-columns:1fr}
       .promo-stats{grid-template-columns:repeat(2,1fr)}
       .promo-title{font-size:36px}
-      .nav{gap:8px;flex-wrap:wrap}
-      .nav button{font-size:13px;padding:8px 12px}
       .instructions-title{font-size:36px}
-      .steps-grid{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+      .steps-grid{grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
+      .gallery h2{font-size:32px}
+      .gallery-subsection h3{font-size:24px}
+      .hero-right{width:100%;max-width:400px}
+      .grid{grid-template-columns:repeat(auto-fill,minmax(240px,1fr));justify-content:center}
+      .gallery-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
     }
-    @media (max-width:720px){
-      h1{font-size:28px}.hero{flex-direction:column;align-items:flex-start}
-      .promo-stats{grid-template-columns:1fr}
-      .promo-cta{flex-direction:column}
-      .cta-primary,.cta-secondary{width:100%;text-align:center}
-      .nav{gap:6px}
-      .nav a{font-size:13px}
-      .nav button{font-size:12px;padding:6px 10px}
-      .floating-contact{bottom:20px;right:20px;gap:10px}
-      .floating-btn{width:50px;height:50px}
-      .floating-btn svg{width:24px;height:24px}
-      .scroll-top{bottom:20px;right:90px;width:45px;height:45px}
+
+    /* Mobile landscape and small tablets */
+    @media (max-width:768px){
+      header{padding:14px 16px}
+      .logo svg{width:36px;height:36px}
+      .brand{font-size:17px}
+      .hero{flex-direction:column;align-items:flex-start;padding:32px 16px;gap:24px}
+      .hero-right{width:100%;max-width:100%}
+      h1{font-size:28px;line-height:1.2}
+      .kicker{font-size:12px;padding:6px 12px}
+      p.lead{font-size:15px}
+      .search{flex-direction:column;gap:12px}
+      .search input{width:100%;min-width:100%}
+      .search button{width:100%;padding:12px 16px}
+      .section-title{font-size:28px}
+      .section-tagline{font-size:14px}
+      .products{padding:32px 16px}
+      .grid{grid-template-columns:1fr;gap:16px;justify-content:stretch}
+      .card{max-width:100%}
+      .gallery{padding:32px 16px}
+      .gallery h2{font-size:28px}
+      .gallery-subsection{margin-top:32px;padding-top:24px}
+      .gallery-subsection h3{font-size:22px}
+      .gallery-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+      .promo{padding:40px 16px}
+      .promo-title{font-size:32px}
+      .promo-subtitle{font-size:17px}
+      .promo-stats{grid-template-columns:1fr;gap:16px}
+      .promo-cta{flex-direction:column;gap:12px}
+      .cta-primary,.cta-secondary{width:100%;text-align:center;padding:14px 24px}
+      .stat-number{font-size:28px}
+      .instructions{padding:40px 16px}
       .instructions-title{font-size:32px}
       .instructions-subtitle{font-size:16px}
-      .steps-grid{grid-template-columns:1fr;gap:24px}
+      .steps-grid{grid-template-columns:1fr;gap:20px}
       .step-card{padding:24px 20px}
+      .step-number{width:56px;height:56px;font-size:24px}
+      .step-title{font-size:18px}
+      .step-desc{font-size:14px}
+      .floating-contact{bottom:16px;right:16px;gap:10px}
+      .floating-btn{width:52px;height:52px}
+      .floating-btn svg{width:26px;height:26px}
+      .scroll-top{bottom:16px;right:88px;width:48px;height:48px;font-size:20px}
+      footer{padding:24px 16px;font-size:13px;text-align:center;justify-content:center}
+      .qr{flex-direction:column}
+      .qr .box{width:180px;height:180px}
     }
 
-    /* responsive */
-    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(2,6,23,0.6),rgba(2,6,23,0.85));z-index:60}
-    .modal.open{display:flex}
-    .sheet{width:min(740px,92%);background:linear-gradient(180deg,#07142a,#061223);border-radius:12px;padding:18px;border:1px solid rgba(255,255,255,0.04)}
-    .sheet .head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-    .qr{display:flex;gap:18px;align-items:center}
-    .qr .box{width:220px;height:220px;background:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center}
-    .note{color:var(--muted);font-size:13px}
+    /* Mobile portrait */
+    @media (max-width:480px){
+      header{padding:12px 14px;gap:12px}
+      .logo{gap:8px}
+      .logo svg{width:32px;height:32px}
+      .brand{font-size:16px}
+      .nav{display:none !important}
+      .hamburger{display:flex}
+      .mobile-nav{top:70px}
+      .nav a{font-size:13px;padding:4px 0}
+      .nav button{font-size:12px;padding:6px 10px;gap:4px}
+      .nav button svg{width:16px;height:16px}
+      .hero{padding:24px 14px}
+      h1{font-size:24px}
+      h1 br{display:none}
+      .kicker{font-size:11px}
+      p.lead{font-size:14px}
+      .info-card,.highlight-card{font-size:13px;padding:14px}
+      .section-title{font-size:24px}
+      .section-tagline{font-size:13px}
+      .products{padding:24px 14px 60px}
+      .gallery{padding:24px 14px 40px}
+      .gallery h2{font-size:24px}
+      .gallery-subtitle{font-size:13px;margin-bottom:20px}
+      .gallery-subsection h3{font-size:20px}
+      .gallery-subsection-subtitle{font-size:12px}
+      .gallery-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+      .gallery-item::before{font-size:24px}
+      .promo{padding:32px 14px}
+      .promo-title{font-size:26px}
+      .promo-subtitle{font-size:15px}
+      .promo-badge{font-size:12px;padding:6px 12px}
+      .feature-item{gap:10px;font-size:14px}
+      .feature-icon{width:20px;height:20px;font-size:12px}
+      .stat-number{font-size:24px}
+      .stat-label{font-size:12px}
+      .cta-primary,.cta-secondary{font-size:16px;padding:12px 20px}
+      .company-tag{font-size:12px;padding:6px 10px}
+      .instructions{padding:32px 14px}
+      .instructions-title{font-size:26px}
+      .instructions-subtitle{font-size:15px}
+      .step-number{width:48px;height:48px;font-size:20px}
+      .step-icon{font-size:36px}
+      .step-title{font-size:17px}
+      .step-desc{font-size:13px}
+      .floating-contact{bottom:12px;right:12px;gap:8px}
+      .floating-btn{width:48px;height:48px}
+      .floating-btn svg{width:22px;height:22px}
+      .scroll-top{bottom:12px;right:72px;width:44px;height:44px;font-size:18px}
+      .thumb{height:140px;font-size:16px}
+      .price{font-size:18px}
+      .card h3{font-size:16px}
+      .btn{font-size:14px;padding:9px 14px;min-height:40px}
+      footer{font-size:12px;gap:8px}
+      .sheet{padding:16px}
+      .qr .box{width:160px;height:160px}
+      .lightbox{padding:12px}
+      .lightbox img{max-width:95%;max-height:85vh}
+      .lightbox-close{padding:10px 14px;font-size:14px;top:12px;right:12px}
+    }
 
-    /* responsive */
-    @media (max-width:720px){h1{font-size:28px}.hero{flex-direction:column;align-items:flex-start}}
+    /* Small mobile devices */
+    @media (max-width:360px){
+      h1{font-size:22px}
+      .section-title{font-size:22px}
+      .gallery h2{font-size:22px}
+      .gallery-grid{grid-template-columns:repeat(auto-fill,minmax(100px,1fr))}
+      .promo-title{font-size:24px}
+      .instructions-title{font-size:24px}
+      .floating-contact{bottom:10px;right:10px}
+      .floating-btn{width:44px;height:44px}
+      .floating-btn svg{width:20px;height:20px}
+      .scroll-top{bottom:10px;right:64px;width:40px;height:40px}
+      .grid{gap:14px}
+    }
   </style>
 </head>
 <body>
@@ -232,7 +382,35 @@
         Email
       </button>
     </nav>
+    <!-- Hamburger Menu Icon -->
+    <div class="hamburger" id="hamburger" onclick="toggleMobileNav()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
   </header>
+
+  <!-- Mobile Navigation Menu -->
+  <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav-content">
+      <a href="index.html" onclick="toggleMobileNav()" style="display:flex;align-items:center;gap:10px">
+        <span style="font-size:20px">🏠</span>
+        <span>Home</span>
+      </a>
+      <a href="mock-interview.html" onclick="toggleMobileNav()" style="display:flex;align-items:center;gap:10px">
+        <span style="font-size:20px">🎤</span>
+        <span>Mock Interview</span>
+      </a>
+      <button class="btn ghost" onclick="openWhatsApp();toggleMobileNav()" style="display:flex;align-items:center;gap:10px;justify-content:center">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <span>WhatsApp</span>
+      </button>
+      <button class="btn ghost" onclick="openEmail();toggleMobileNav()" style="display:flex;align-items:center;gap:10px;justify-content:center">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        <span>Email</span>
+      </button>
+    </div>
+  </div>
 
   <section class="hero">
     <div class="hero-left">
@@ -243,10 +421,6 @@
       <div class="search"><input id="q" placeholder="🔍 Search products, e.g. 'Aptitude', 'Interview Guide'..." /><button id="searchBtn">Search Now</button></div>
     </div>
     <div class="hero-right">
-      <div class="info-card">
-        <div style="font-weight:800;margin-bottom:8px">💎 Why Choose TechKalaA?</div>
-        <div class="note">✅ Curated by industry experts<br>✅ Updated placement patterns<br>✅ Company-specific materials<br>✅ Instant digital delivery</div>
-      </div>
       <div class="highlight-card">🔥 500+ Students Placed | ⭐ 4.9/5 Rating</div>
     </div>
   </section>
@@ -449,7 +623,7 @@
   </section>
 
   <footer>
-    <div>© 2025 <strong>BuggetB</strong> — 🎓 Premium Placement Materials | Made with 💚 for Students</div>
+    <div>© 2025 <strong>TechKalaA</strong> — 🎓 Premium Placement Materials | Made with 💚 for Students</div>
     <div class="note">💳 Secure QR Payment • 📱 Instant Access • 🔒 100% Safe</div>
   </footer>
 
@@ -526,6 +700,25 @@
   <button class="scroll-top" id="scrollTop" title="Back to top">↑</button>
 
   <script>
+    // Mobile navigation toggle
+    function toggleMobileNav(){
+      const mobileNav = document.getElementById('mobileNav');
+      const hamburger = document.getElementById('hamburger');
+      mobileNav.classList.toggle('open');
+      hamburger.classList.toggle('active');
+    }
+    
+    // Close mobile nav when clicking outside
+    document.addEventListener('click', function(e){
+      const mobileNav = document.getElementById('mobileNav');
+      const hamburger = document.getElementById('hamburger');
+      const header = document.querySelector('header');
+      if(!header.contains(e.target) && mobileNav.classList.contains('open')){
+        mobileNav.classList.remove('open');
+        hamburger.classList.remove('active');
+      }
+    });
+    
     (function(){
       const products = [
         {id:1,name:'Ultimate Placement Material Pack',price:199,desc:'2000+ PDFs • 30+ Companies • Complete Preparation Kit',img:'assets/Ultimate-Placement-Material.png'},
@@ -596,6 +789,11 @@
         const whatsappURL = `https://wa.me/919479314263?text=${message}`;
         window.open(whatsappURL, '_blank');
       }
+      
+      function openWhatsApp(){
+        openWhatsAppContact();
+      }
+      
       document.getElementById('floatingWhatsApp').addEventListener('click', openWhatsAppContact);
       document.getElementById('navWhatsApp').addEventListener('click', openWhatsAppContact);
 
@@ -605,6 +803,10 @@
         const body = `Hi BuggetB Team,%0D%0A%0D%0AI am interested in learning more about your placement preparation materials.%0D%0A%0D%0APlease share the details and pricing.%0D%0A%0D%0AThank you!%0D%0A%0D%0ABest regards`;
         const gmailURL = `https://mail.google.com/mail/?view=cm&fs=1&to=placementguide6@gmail.com&su=${encodeURIComponent(subject)}&body=${body}`;
         window.open(gmailURL, '_blank');
+      }
+      
+      function openEmail(){
+        openEmailContact();
       }
       document.getElementById('floatingEmail').addEventListener('click', openEmailContact);
       document.getElementById('navEmail').addEventListener('click', openEmailContact);

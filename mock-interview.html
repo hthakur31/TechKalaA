@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5,user-scalable=yes" />
   <title>Mock Interview - BuggetB</title>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
@@ -18,18 +18,35 @@
     body::before{background:var(--accent);top:-200px;left:-200px;animation:float 20s ease-in-out infinite}
     body::after{background:#3bd6ff;bottom:-200px;right:-200px;animation:float 25s ease-in-out infinite reverse}
     
-    header{display:flex;align-items:center;justify-content:space-between;padding:20px 32px;border-bottom:1px solid rgba(255,255,255,0.03);backdrop-filter:blur(12px);position:sticky;top:0;z-index:50;background:rgba(7,16,37,0.8);animation:slideDown 0.6s ease-out}
-    .logo{display:flex;gap:12px;align-items:center;animation:fadeIn 0.8s ease-out 0.2s both}
+    header{display:flex;align-items:center;justify-content:space-between;padding:20px 32px;border-bottom:1px solid rgba(255,255,255,0.03);backdrop-filter:blur(12px);position:sticky;top:0;z-index:50;background:rgba(7,16,37,0.95);animation:slideDown 0.6s ease-out}
+    .logo{display:flex;gap:12px;align-items:center;animation:fadeIn 0.8s ease-out 0.2s both;cursor:pointer}
     .logo svg{animation:rotate 20s linear infinite}
     .brand{font-weight:800;letter-spacing:0.4px;font-size:20px;background:linear-gradient(135deg,#fff,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-    .nav{display:flex;gap:18px;align-items:center;animation:fadeIn 0.8s ease-out 0.4s both}
-    .nav a{color:var(--muted);text-decoration:none;font-weight:600;position:relative;transition:color 0.3s}
+    
+    /* Mobile-first: Hide nav by default, show hamburger */
+    .nav{display:none;gap:18px;align-items:center}
+    .nav a{color:var(--muted);text-decoration:none;font-weight:600;position:relative;transition:color 0.3s;white-space:nowrap}
     .nav a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--accent);transition:width 0.3s}
     .nav a:hover{color:var(--accent)}
     .nav a:hover::after{width:100%}
     .nav a.active{color:var(--accent)}
     
-    .btn{padding:10px 18px;background:linear-gradient(90deg,var(--accent),#3bd6ff);border:none;border-radius:8px;color:#012;font-weight:700;cursor:pointer;transition:transform 0.2s,box-shadow 0.3s}
+    /* Hamburger Menu - Visible by default on mobile */
+    .hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:10px;background:rgba(110,231,183,0.1);border-radius:8px;border:1px solid rgba(110,231,183,0.3);transition:all 0.3s;z-index:51}
+    .hamburger:hover{background:rgba(110,231,183,0.2);border-color:var(--accent);transform:scale(1.05)}
+    .hamburger span{width:26px;height:3px;background:var(--accent);border-radius:2px;transition:all 0.3s;display:block}
+    .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(8px,8px)}
+    .hamburger.active span:nth-child(2){opacity:0;transform:translateX(-10px)}
+    .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(8px,-8px)}
+    
+    .mobile-nav{display:none;position:fixed;top:73px;left:0;right:0;bottom:0;background:rgba(7,16,37,0.98);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.06);padding:0;z-index:49;overflow-y:auto;opacity:0;transform:translateY(-20px);transition:opacity 0.3s ease-out,transform 0.3s ease-out}
+    .mobile-nav.open{display:block;opacity:1;transform:translateY(0);animation:fadeIn 0.3s ease-out}
+    .mobile-nav-content{padding:24px 20px;max-width:500px;margin:0 auto}
+    .mobile-nav a,.mobile-nav button{display:block;width:100%;text-align:left;margin-bottom:16px;padding:16px 20px;border-radius:12px;transition:all 0.3s;font-size:16px;font-weight:600;color:#fff;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);text-decoration:none}
+    .mobile-nav a:hover,.mobile-nav button:hover{background:rgba(110,231,183,0.15);transform:translateX(8px);border-color:var(--accent);box-shadow:0 4px 12px rgba(110,231,183,0.2);color:var(--accent)}
+    .mobile-nav a.active{color:var(--accent);background:rgba(110,231,183,0.1);border-color:rgba(110,231,183,0.4)}
+    
+    .btn{padding:10px 18px;background:linear-gradient(90deg,var(--accent),#3bd6ff);border:none;border-radius:8px;color:#012;font-weight:700;cursor:pointer;transition:transform 0.2s,box-shadow 0.3s;touch-action:manipulation;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
     .btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(110,231,183,0.3)}
     .btn.ghost{background:rgba(255,255,255,0.05);color:var(--accent);border:1px solid rgba(110,231,183,0.3)}
     .btn.ghost:hover{background:rgba(110,231,183,0.1)}
@@ -54,7 +71,7 @@
     .booking-form h3{margin:0 0 24px;font-size:24px;color:#fff}
     .form-group{margin-bottom:20px}
     .form-group label{display:block;margin-bottom:8px;color:#e6eef6;font-weight:600}
-    .form-group input, .form-group select, .form-group textarea{width:100%;padding:12px 16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#e6eef6;font-family:inherit;font-size:14px;transition:border-color 0.3s}
+    .form-group input, .form-group select, .form-group textarea{width:100%;padding:12px 16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#e6eef6;font-family:inherit;font-size:16px;transition:border-color 0.3s}
     .form-group select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236ee7b7' d='M6 9L1 4h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:36px}
     .form-group select option{background:#0b1220;color:#e6eef6;padding:12px}
     .form-group input:focus, .form-group select:focus, .form-group textarea:focus{outline:none;border-color:var(--accent)}
@@ -74,6 +91,16 @@
     
     footer{padding:32px;text-align:center;border-top:1px solid rgba(255,255,255,0.03);color:var(--muted);margin-top:60px}
     
+    /* Floating Contact Buttons */
+    .floating-contact{position:fixed;bottom:30px;right:30px;display:flex;flex-direction:column;gap:12px;z-index:90;animation:fadeInRight 0.8s ease-out}
+    .floating-btn{width:56px;height:56px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,0.3);transition:all 0.3s;animation:float 3s ease-in-out infinite}
+    .floating-btn:hover{transform:translateY(-6px) scale(1.1);box-shadow:0 12px 30px rgba(0,0,0,0.4)}
+    .floating-btn.whatsapp{background:linear-gradient(135deg,#25d366,#128c7e)}
+    .floating-btn.whatsapp:hover{box-shadow:0 12px 30px rgba(37,211,102,0.5)}
+    .floating-btn.email{background:linear-gradient(135deg,#ea4335,#c5221f)}
+    .floating-btn.email:hover{box-shadow:0 12px 30px rgba(234,67,53,0.5)}
+    .floating-btn svg{width:28px;height:28px;color:white}
+
     @keyframes float{0%,100%{transform:translate(0,0)}25%{transform:translate(20px,-20px)}50%{transform:translate(-20px,20px)}75%{transform:translate(10px,10px)}}
     @keyframes slideDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
     @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -83,15 +110,106 @@
     @keyframes rotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
     @keyframes scaleIn{from{opacity:0;transform:scale(0.8)}to{opacity:1;transform:scale(1)}}
     
-    @media (max-width:920px){
-      .booking-grid{grid-template-columns:1fr}
-      .hero-title{font-size:42px}
-      .pricing-cards{grid-template-columns:1fr}
+    /* Desktop - Show normal nav, hide hamburger */
+    @media (min-width:921px){
+      .nav{display:flex !important;animation:fadeIn 0.8s ease-out 0.4s both}
+      .hamburger{display:none !important}
+      .mobile-nav{display:none !important}
     }
-    @media (max-width:720px){
-      .hero-title{font-size:36px}
-      .nav{gap:12px;flex-wrap:wrap}
+    
+    /* Responsive Design - Mobile First */
+    /* Tablet */
+    @media (max-width:1024px){
+      .hero-section{padding:50px 24px}
+      .booking-container{padding:32px 24px}
+      .pricing-section{padding:50px 24px}
+    }
+
+    @media (max-width:920px){
+      header{padding:16px 20px}
+      .brand{font-size:18px}
+      .nav{gap:12px}
       .nav a{font-size:14px}
+      .hero-section{padding:40px 20px}
+      .hero-title{font-size:42px}
+      .hero-subtitle{font-size:18px}
+      .booking-container{padding:32px 20px}
+      .booking-grid{grid-template-columns:1fr;gap:32px}
+      .pricing-section{padding:40px 20px}
+      .pricing-title{font-size:32px}
+      .pricing-cards{grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+      .floating-contact{bottom:24px;right:24px}
+    }
+
+    /* Mobile landscape */
+    @media (max-width:768px){
+      header{padding:14px 16px}
+      .logo svg{width:36px;height:36px}
+      .brand{font-size:17px}
+      .nav{gap:10px}
+      .nav a{font-size:13px}
+      .hero-section{padding:32px 16px}
+      .hero-title{font-size:36px}
+      .hero-subtitle{font-size:17px;margin-bottom:32px}
+      .booking-container{padding:24px 16px}
+      .booking-grid{gap:24px}
+      .info-card, .booking-form{padding:24px}
+      .info-card h3, .booking-form h3{font-size:20px}
+      .form-group{margin-bottom:18px}
+      .pricing-section{padding:32px 16px}
+      .pricing-title{font-size:28px}
+      .pricing-cards{grid-template-columns:1fr;gap:16px}
+      .price-card{padding:24px}
+      .price-amount{font-size:40px}
+      footer{padding:24px 16px;font-size:14px}
+      .floating-contact{bottom:16px;right:16px;gap:10px}
+      .floating-btn{width:52px;height:52px}
+      .floating-btn svg{width:26px;height:26px}
+    }
+
+    /* Mobile portrait */
+    @media (max-width:480px){
+      header{padding:12px 14px;gap:12px}
+      .logo{gap:8px}
+      .logo svg{width:32px;height:32px}
+      .brand{font-size:16px}
+      .nav{gap:8px;justify-content:center;width:100%;margin-top:8px}
+      .nav a{font-size:12px;padding:4px 0}
+      .nav button{font-size:12px;padding:6px 10px}
+      .hero-section{padding:24px 14px}
+      .hero-title{font-size:28px}
+      .hero-subtitle{font-size:15px;margin-bottom:24px}
+      .booking-container{padding:20px 14px}
+      .info-card, .booking-form{padding:20px;border-radius:12px}
+      .info-card h3, .booking-form h3{font-size:18px;margin-bottom:16px}
+      .info-card p{font-size:14px}
+      .feature-list li{padding:10px 0;font-size:14px}
+      .feature-icon{font-size:18px}
+      .form-group label{font-size:14px}
+      .form-group input, .form-group select, .form-group textarea{padding:10px 14px;font-size:16px}
+      .btn{padding:12px 16px;font-size:15px;width:100%;min-height:48px}
+      .pricing-section{padding:24px 14px}
+      .pricing-title{font-size:24px}
+      .price-card{padding:20px}
+      .price-badge{font-size:11px;padding:5px 10px}
+      .price-amount{font-size:36px;margin:12px 0}
+      .price-duration{font-size:14px;margin-bottom:20px}
+      .price-features li{padding:10px 0;font-size:14px}
+      footer{padding:20px 14px;font-size:13px}
+      .floating-contact{bottom:12px;right:12px;gap:8px}
+      .floating-btn{width:48px;height:48px}
+      .floating-btn svg{width:22px;height:22px}
+    }
+
+    /* Small mobile */
+    @media (max-width:360px){
+      .hero-title{font-size:24px}
+      .pricing-title{font-size:22px}
+      .price-amount{font-size:32px}
+      .info-card h3, .booking-form h3{font-size:17px}
+      .floating-contact{bottom:10px;right:10px}
+      .floating-btn{width:44px;height:44px}
+      .floating-btn svg{width:20px;height:20px}
     }
   </style>
 </head>
@@ -115,7 +233,35 @@
         Email
       </button>
     </nav>
+    <!-- Hamburger Menu Icon -->
+    <div class="hamburger" id="hamburger" onclick="toggleMobileNav()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
   </header>
+
+  <!-- Mobile Navigation Menu -->
+  <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav-content">
+      <a href="index.html" onclick="toggleMobileNav()" style="display:flex;align-items:center;gap:10px">
+        <span style="font-size:20px">🏠</span>
+        <span>Home</span>
+      </a>
+      <a href="mock-interview.html" class="active" onclick="toggleMobileNav()" style="display:flex;align-items:center;gap:10px">
+        <span style="font-size:20px">🎤</span>
+        <span>Mock Interview</span>
+      </a>
+      <button class="btn ghost" onclick="openWhatsAppContact();toggleMobileNav()" style="display:flex;align-items:center;gap:10px;justify-content:center">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <span>WhatsApp</span>
+      </button>
+      <button class="btn ghost" onclick="openEmailContact();toggleMobileNav()" style="display:flex;align-items:center;gap:10px;justify-content:center">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        <span>Email</span>
+      </button>
+    </div>
+  </div>
 
   <section class="hero-section">
     <h1 class="hero-title">🎤 Mock Interview Sessions</h1>
@@ -274,11 +420,53 @@
   </section>
 
   <footer>
-    <div>© 2025 <strong>BuggetB</strong> — 🎓 Premium Placement Materials & Mock Interviews | Made with 💚 for Students</div>
+    <div>© 2025 <strong>TechKalaA</strong> — 🎓 Premium Placement Materials & Mock Interviews | Made with 💚 for Students</div>
     <div style="margin-top:12px;font-size:13px">💳 Secure Payment • 📱 Instant Confirmation • 🔒 100% Safe</div>
   </footer>
 
+  <!-- Floating Contact Buttons -->
+  <div class="floating-contact">
+    <button class="floating-btn whatsapp" onclick="openWhatsAppFloat()" title="Chat on WhatsApp" aria-label="WhatsApp">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </button>
+    <button class="floating-btn email" onclick="openEmailFloat()" title="Send Email" aria-label="Email">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+    </button>
+  </div>
+
   <script>
+    // Mobile navigation toggle
+    function toggleMobileNav(){
+      const mobileNav = document.getElementById('mobileNav');
+      const hamburger = document.getElementById('hamburger');
+      mobileNav.classList.toggle('open');
+      hamburger.classList.toggle('active');
+    }
+    
+    // Close mobile nav when clicking outside
+    document.addEventListener('click', function(e){
+      const mobileNav = document.getElementById('mobileNav');
+      const hamburger = document.getElementById('hamburger');
+      const header = document.querySelector('header');
+      if(!header.contains(e.target) && mobileNav.classList.contains('open')){
+        mobileNav.classList.remove('open');
+        hamburger.classList.remove('active');
+      }
+    });
+    
+    // Floating contact buttons
+    function openWhatsAppFloat(){
+      const message = encodeURIComponent(`Hi BuggetB! I'm interested in booking a mock interview. Can you help me with more details? 🎤`);
+      const whatsappURL = `https://wa.me/919479314263?text=${message}`;
+      window.open(whatsappURL, '_blank');
+    }
+
+    function openEmailFloat(){
+      const subject = `Mock Interview Booking Inquiry`;
+      const body = `Hi BuggetB Team,%0D%0A%0D%0AI'm interested in booking a mock interview session. Please share the available slots and payment details.%0D%0A%0D%0AThank you!`;
+      window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=placementguide6@gmail.com&su=${encodeURIComponent(subject)}&body=${body}`, '_blank');
+    }
+
     // Contact buttons functionality
     function openWhatsAppContact(){
       const message = encodeURIComponent(`Hi BuggetB! I'm interested in your placement materials and mock interviews. Please share more details. 🎓`);
